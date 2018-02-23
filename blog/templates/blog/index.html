@@ -1,8 +1,13 @@
+{% extends 'layout.html' %}
 {% load markdownify %}
 
-{% if post %}
-<h1>{{post.title}}</h1>
-<article>{{ post.content| markdown | safe}}</article>
-{% else %}
-<h1>Nothing to see here.</h1>
-{% endif %}
+{% block content %}
+
+    {% if post %}
+        <h1>{{post.title}}</h1>
+        <article>{{ post.content| markdown | safe}}</article>
+    {% else %}
+        <h1>Nothing to see here.</h1>
+    {% endif %}
+
+{% endblock %}
