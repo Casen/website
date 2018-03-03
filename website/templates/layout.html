@@ -1,3 +1,5 @@
+{% load sass_tags %}
+
 <!doctype html>
 <html lang="en" >
     <head>
@@ -6,15 +8,38 @@
         <title>Casen Davis Has a Website</title>
         <meta name="description" content="Casen Davis' Personal Website"
         <meta name="author" content="Casen Davis">
+        <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Libre+Baskerville">
-        <link rel="stylesheet" href="/static/stylesheets/LeageSpartan-Bold.css">
+        <link rel="stylesheet" href="/static/stylesheets/LeagueSpartan-Bold.css">
+        <link rel="stylesheet" href="{% sass_src 'stylesheets/global.scss' %}">
 
         <!-- [if lt IE 9]>
              <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
         <![endif]-->
     </head>
     <body>
-        {% block content %}
-        {% endblock %}
+        <navbar class="flex items-center pl2 pr2">
+            <img class="logo" src="/static/images/logo-min-white-fill.png" />
+            <div class="flex-auto">
+                <h2 class="mt0 mb0 ml1">Casen Davis</h2>
+                <p class="sub-heading ml2 mt0 mb0"><em>Software engineer</em></p>
+            </div>
+            <navmenu class="pr3">
+                <a href="/" >home</a>
+                <a href="/blog/" >blog</a>
+                <a href="/contact/" >contact</a>
+            </navmenu>
+        </navbar>
+        <div class="clear-fix" >
+            <div class="max-width-3 mx-auto">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </content>
+        <footer class="flex items-center center">
+            <p class="flex-auto font-lato">
+                <strong>© {% now "Y" %} Casen Davis. All Rights Reserved</strong>
+            </p>
+        </footer>
     </body>
 </html>
