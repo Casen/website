@@ -1,0 +1,51 @@
+/* Color Schemes */
+h1, h2, h3, h4, h5 {
+  font-family: 'League Spartan';
+  color: #373741; }
+  h1 a, h2 a, h3 a, h4 a, h5 a {
+    text-decoration: none;
+    color: #373741; }
+
+p, ul, li, label {
+  font-family: 'Libre Baskerville', serif;
+  color: #373741; }
+
+.uppercase {
+  text-transform: uppercase; }
+
+.sub-heading {
+  font-family: 'Lato', sans-serif;
+  color: #373741; }
+
+navbar {
+  background-color: #bbaa88;
+  width: 100%;
+  height: 100px; }
+
+navmenu a {
+  font-family: 'Lato', sans-serif;
+  text-decoration: none;
+  color: #373741;
+  text-transform: uppercase;
+  padding: 0 10px 0 10px; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff; }
+
+footer {
+  background-color: #ccccbb;
+  width: 100%;
+  height: 65px;
+  position: absolute;
+  bottom: 0; }
+
+.logo {
+  width: 65px;
+  height: 65px; }
+
+.font-lato {
+  font-family: "Lato", sans-serif; }
+
+/*# sourceMappingURL=../../../../../../../static/stylesheets/global.css.map */

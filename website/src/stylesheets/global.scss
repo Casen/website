@@ -1,0 +1,62 @@
+@import "_variables";
+
+h1, h2, h3, h4, h5 {
+    font-family: 'League Spartan';
+    color: $primary-font;
+
+    a {
+        text-decoration: none;
+        color: $primary-font;
+    }
+}
+
+p, ul, li, label {
+    font-family: 'Libre Baskerville', serif;
+    color: $primary-font;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.sub-heading {
+    font-family: 'Lato', sans-serif;
+    color: $primary-font;
+}
+
+navbar {
+    background-color: $primary;
+    width: 100%;
+    height: 100px;
+}
+
+navmenu a {
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+    color: $primary-font;
+    text-transform: uppercase;
+    padding: 0 10px 0 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: $primary-background;
+}
+
+footer {
+    background-color: $secondary;
+    width: 100%;
+    height: 65px;
+    position: absolute;
+    bottom: 0;
+}
+
+.logo {
+    width: 65px;
+    height: 65px;
+}
+
+.font-lato {
+    font-family: "Lato", sans-serif;
+}
