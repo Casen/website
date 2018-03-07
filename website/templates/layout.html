@@ -18,7 +18,7 @@
         <![endif]-->
     </head>
     <body>
-        <navbar class="flex items-center pl2 pr2">
+        <navbar class="flex items-center pl2 pr2 light-bg-text" >
             <img class="logo" src="/static/images/logo-min-white-fill.png" />
             <div class="flex-auto">
                 <h2 class="mt0 mb0 ml1">Casen Davis</h2>
@@ -30,13 +30,15 @@
                 <a href="/contact/" >contact</a>
             </navmenu>
         </navbar>
-        <div class="clear-fix" >
+        <div class="primary-bg navbar-transparency">
+        </div>
+        <div class="clear-fix light-bg-text light-bg" >
             <div class="max-width-3 mx-auto">
                 {% block content %}
                 {% endblock %}
             </div>
-        </content>
-        <footer class="flex items-center center">
+        </div>
+        <footer class="flex items-center center light-bg-text">
             <p class="flex-auto font-lato">
                 <strong>© {% now "Y" %} Casen Davis. All Rights Reserved</strong>
             </p>
