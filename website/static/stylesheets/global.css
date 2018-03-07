@@ -1,41 +1,67 @@
+/* Misc Colors */
+/* ====== Palettes ====== */
+/* Japanese garden */
+/* Solar Punk*/
 /* Color Schemes */
 h1, h2, h3, h4, h5 {
-  font-family: 'League Spartan';
-  color: #373741; }
-  h1 a, h2 a, h3 a, h4 a, h5 a {
-    text-decoration: none;
-    color: #373741; }
+  font-family: 'League Spartan'; }
 
 p, ul, li, label {
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Libre Baskerville', serif; }
+
+.sub-heading {
+  font-family: 'Lato', sans-serif; }
+
+.font-lato {
+  font-family: "Lato", sans-serif; }
+
+h1 a, h2 a, h3 a, h4 a, h5 a {
+  text-decoration: none; }
+
+.dark-bg-text h1, .dark-bg-text h2, .dark-bg-text h3, .dark-bg-text h4, .dark-bg-text h5, .dark-bg-text p, .dark-bg-text a, .dark-bg-text ul, .dark-bg-text li, .dark-bg-text label {
+  color: #bbddcc; }
+
+.light-bg {
+  background-color: #ffffff; }
+
+.primary-bg {
+  background-color: #88aa99; }
+
+.light-bg-text h1, .light-bg-text h2, .light-bg-text h3, .light-bg-text h4, .light-bg-text h5, .light-bg-text p, .light-bg-text a, .light-bg-text ul, .light-bg-text li, .light-bg-text label {
   color: #373741; }
 
 .uppercase {
   text-transform: uppercase; }
 
-.sub-heading {
-  font-family: 'Lato', sans-serif;
-  color: #373741; }
-
 navbar {
-  background-color: #bbaa88;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100px; }
+  height: 100px;
+  z-index: 9050; }
+
+.navbar-transparency {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  opacity: 0.9;
+  z-index: 9000; }
 
 navmenu a {
   font-family: 'Lato', sans-serif;
   text-decoration: none;
-  color: #373741;
   text-transform: uppercase;
   padding: 0 10px 0 10px; }
 
 body {
   margin: 0;
-  padding: 0;
-  background-color: #ffffff; }
+  padding: 0; }
 
 footer {
-  background-color: #ccccbb;
+  background-color: #ccbbaa;
   width: 100%;
   height: 65px;
   position: absolute;
