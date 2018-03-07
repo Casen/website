@@ -1,13 +1,44 @@
 
+/* Misc Colors */
 $white: #ffffff;
+$black: #000000;
 $grey-blue: #373741;
+$grey-blue-tint: #87878d;
 $tan-avocado: #bbaa88;
 $tan-grey: #ccccbb;
+
+/* ====== Palettes ====== */
+
+/* Japanese garden */
+$black-pearl: #001122;
+$blue-steel: #223344;
+$blue-pearl-light: #8899bb;
+
+$celtic-green: #113322;
+$cactus: #557755;
+$summer-green: #99bbaa;
+$fresh-mint: #cceedd;
+
+/* Solar Punk*/
+$fiord: #445566;
+$sky-blue: #7799bb;
+$sky-blue-light: #ccddee;
+$smalt-blue: #558888;
+
+$glade-green: #668866;
+$cactus-light: #88aa99;
+$fresh-mint-light: #bbddcc;
+
+$albescent-white: #eeeecc;
+$clam-shell: #ccbbaa;
+
 
 
 /* Color Schemes */
 
-$primary: $tan-avocado;
-$primary-font: $grey-blue;
-$primary-background: $white;
-$secondary: $tan-grey;
+$primary:                 $cactus-light;
+$primary-background-light:$white;
+$primary-font-light-bg:   $grey-blue;
+$secondary-font-light-bg: $grey-blue-tint;
+$primary-font-dark-bg:    $fresh-mint-light;
+$secondary:               $clam-shell;
