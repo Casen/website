@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% load markdownify %}
+
+{% block content %}
+    {% if project %}
+        <section>
+            <h1> {{project.title}}</h1>
+            <article>{{ project.description| markdown | safe}}</article>
+            {% include project.custom_template %}
+        </section>
+    {% else %}
+        <h1>Nothing to see here</h1>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% load markdownify %}
+
+{% block content %}
+    {% if projects %}
+        {% for project in projects %}
+            <section>
+                <h2>
+                    <a href="{% url 'detail' slug=project.slug %}">{{project.title}}</a>
+                </h2>
+                <article>{{ project.description| markdown | safe}}</article>
+                <p><a href="{% url 'detail' slug=project.slug %}">View Details</a></p>
+            </section>
+        {% endfor %}
+    {% else %}
+        <h1>Nothing to see here</h1>
+    {% endif %}
+
+{% endblock %}
