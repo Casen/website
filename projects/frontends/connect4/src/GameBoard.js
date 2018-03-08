@@ -4,44 +4,56 @@ import PropTypes from 'prop-types';
 
 class BoardSpace extends Component {
     static propTypes = {
-        index: PropTypes.number.isRequired
+        index: PropTypes.number.isRequired,
+        makeMove: PropTypes.func.isRequired,
+        move: PropTypes.string
     }
 
-    makeMove = (e) => {
-        console.log('you clicked ', this.props.index);
+    clickSpace = (e) => {
+        e.preventDefault();
+        this.props.makeMove(this.props.index);
     }
 
     render() {
-        var styles = {
-            float: 'left',
-            margin: '2px',
-            width: '48px',
-            textAlign: 'center',
-            cursor: 'pointer',
-            backgroundColor: '#cccccc'
-        };
-
+        var placeholder = !this.props.move;
+        var move = placeholder ? "p" : this.props.move;
+        var style = placeholder ? {visibility:"hidden"} : {};
         return (
-            <div className="board-space" style={styles} onClick={this.makeMove}>
-                <p>{this.props.index}</p>
+            <div className="board-space" onClick={this.clickSpace}>
+                <p style={style}>{move}</p>
             </div>
         );
     }
 }
 
 class GameBoard extends Component {
-    render() {
-        var styles = {
-            width: '450px',
-            margin: '50px auto',
-        };
 
+    state = {
+        isPlayerOne: true,
+        moves: {}
+    }
+
+    makeMove = (spaceIndex) => {
+        let update = this.state || {};
+        update[spaceIndex] = "";
+
+        if (this.state.isPlayerOne) {
+            update[spaceIndex] = "x";
+        } else {
+            update[spaceIndex] = "o";
+        }
+
+        this.setState({moves: update});
+    }
+
+    render() {
         var boardSpaces = [];
         for (var i=0; i<64; i++) {
-            boardSpaces.push(<BoardSpace index={i} key={'board-space-' + i}/>);
+            let move = this.state.moves[i];
+            boardSpaces.push(<BoardSpace index={i} move={move} makeMove={this.makeMove} key={'board-space-' + i}/>);
         }
         return (
-            <div className="game-board" style={styles}>
+            <div className="game-board">
                 {boardSpaces}
             </div>
         );
