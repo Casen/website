@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import GameBoard from './GameBoard';
+import Game from './Game';
 
 class App extends Component {
   render() {
@@ -9,7 +9,7 @@ class App extends Component {
           <header className="center max-width">
               <h2>Connect 4</h2>
           </header>
-          <GameBoard />
+          <Game />
       </div>
     );
   }
