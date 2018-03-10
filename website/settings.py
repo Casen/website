@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'sass_processor',
     'blog.apps.BlogConfig',
     'projects.apps.ProjectsConfig',

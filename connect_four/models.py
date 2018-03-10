@@ -7,19 +7,20 @@ class Game(models.Model):
     ai_starts = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    ended_at = models.DateTimeField(default=None)
+    ended_at = models.DateTimeField(default=None, null=True)
     winner = models.IntegerField(
         default=None,
+        null=True,
         validators=[MaxValueValidator(1), MinValueValidator(2)]
     )
 
 
 
 class Move(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="moves")
     player = models.IntegerField(
         default=None,
-        validators=[MaxValueValidator(1), MinValueValidator(2)]
+        validators=[MaxValueValidator(2), MinValueValidator(1)]
     )
     location = models.IntegerField(
         default=None,
