@@ -15,21 +15,31 @@ class Game extends Component {
         e.preventDefault();
         network.createGame()
             .then(currentGame => {
-                this.setState({currentGame})
+                console.log(currentGame);
+                this.setState({currentGame});
             });
     }
 
     componentDidMount = () => {
-        network.fetchGames()
-            .then(response => {
-                debugger
-            })
+        network.fetchGame(1)
+            .then(currentGame => {
+                console.log('fetched the game ', currentGame);
+                this.setState({currentGame});
+            });
+    }
+
+    persistMove = (move) => {
+        network.makeMove(move)
+            .then(persistedMove => {
+                //We've already captured the move state in the frontend
+            });
+
     }
 
     render() {
         let {currentGame} = this.state;
         let gameMarkup = currentGame ?
-                <GameBoard moves={currentGame.moves} />
+                <GameBoard game={currentGame} persistMove={this.persistMove}/>
                 :
                 <div>
                     <button onClick={this.createGame}>Start Game</button>
