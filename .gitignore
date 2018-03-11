@@ -10,6 +10,7 @@ __pycache__/
 .Python
 env/
 bin/
+website_env/
 include/
 pip-selfcheck.json
 build/
@@ -18,7 +19,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
