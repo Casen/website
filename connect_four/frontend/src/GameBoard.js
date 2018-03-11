@@ -19,7 +19,7 @@ class BoardSpace extends Component {
         var placeholder = !this.props.move;
         var move = placeholder ? "p" : this.props.move;
         var style = placeholder ? {visibility:"hidden"} : {};
-        var moveChar = move.player ? 'x': 'o';
+        var moveChar = move.player == 1 ? 'x': 'o';
         return (
             <div className="board-space" onClick={this.clickSpace}>
                 <p style={style}>{moveChar}</p>
@@ -57,6 +57,15 @@ class GameBoard extends Component {
 
         // Make sure move state is persisted out of band
         this.props.persistMove(move);
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        let state = this.state;
+        let currgame = this.props.game;
+        if (currgame.moves.length !== nextProps.game.moves.length) {
+            state.game = nextProps.game;
+            this.setState(state)
+        }
     }
 
     renderBoardSpaces = () => {
