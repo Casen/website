@@ -14,6 +14,10 @@ class Game(models.Model):
         validators=[MaxValueValidator(1), MinValueValidator(2)]
     )
 
+    def to_state(self):
+        return [m for m in self.moves.all()]
+
+
 
 
 class Move(models.Model):
@@ -27,3 +31,9 @@ class Move(models.Model):
         validators=[MaxValueValidator(63), MinValueValidator(0)]
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def player_char(self):
+        if self.player == 1:
+            return 'x'
+        else:
+            return 'o'
