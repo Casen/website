@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from .serializers import GameSerializer, MoveSerializer
 
 from .models import Game, Move
-from .lib.ai import GameState, AlphaBeta
+from .lib.ai import GameSession
 
 # Create your views here.
 
@@ -21,12 +21,11 @@ class GameViewSet(viewsets.ModelViewSet):
     def ai_move(self, request, pk):
         game = self.get_object()
 
-        gs = GameState(game.to_state())
-        ab = AlphaBeta()
+        gs = GameSession(game)
 
-        next_game_state = ab.search(gs)
+        next_game_state = gs.make_move()
 
-        ai_played_move = next_game_state.moves.pop()
+        ai_played_move = next_game_state.move_made
         ai_played_move.game = game
         ai_played_move.save()
         # TODO figure out DRF nonsense. 
