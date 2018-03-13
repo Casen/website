@@ -16,10 +16,10 @@ class GameSession(object):
         if len(self.current_state.moves) < 3:
             return self.make_opening_move()
 
-        # If opponent can with in one move, we make that move to block
-        losing_move = self.find_losing_move()
-        if losing_move:
-            return self.return_next_state(losing_move)
+        # If opponent can win shortly, let's try to block
+        blocking_move = self.find_blocking_move()
+        if blocking_move:
+            return self.return_next_state(blocking_move)
 
         # If we can win in one move, we make that move to finish
         winning_move = self.find_winning_move()
@@ -30,11 +30,20 @@ class GameSession(object):
         return self.ai.search(self.current_state, maximizing_player=self.player == 1)
 
 
-    def find_losing_move(self):
+    def find_blocking_move(self):
         self.current_state.utility()
+        opp_seq = self.current_state.find_sequence(self.opponent, 2)
+
+        if opp_seq:
+            for l in opp_seq.blocking_locations():
+                if not self.current_state.move_played(l):
+                    return l
+
         return None
 
+
     def find_winning_move(self):
+        self.current_state.utility()
         return None
 
     def make_opening_move(self):
@@ -47,6 +56,28 @@ class GameSession(object):
         new_move = Move(player=self.player, location=move)
         return GameState(self.current_state.moves, move_made=new_move)
 
+class MoveSequence(object):
+    """Represents a consecutive sequence of moves in a given board state"""
+
+    def __init__(self, moves, orientation):
+        self.moves = moves
+        self.orientation = orientation
+
+    def is_win(self):
+        return len(self.moves) == 4
+
+    def has_length(self, length):
+        return len(self.moves) == length
+
+    def blocking_locations(self):
+        first = self.moves[0]
+        last = self.moves[-1]
+        if self.orientation == 'v':
+            return [first - 8, last + 8]
+        else:
+            return [first - 1, last + 1]
+
+
 class GameState(object):
     """Represents the state of a single game board position"""
     def __init__(self, moves, move_made=None):
@@ -57,30 +88,24 @@ class GameState(object):
             self.moves = self.moves + [move_made]
             self.move_made = move_made
 
-        self.moves_dict = {}
         #Create dict of current moves so we get O(n) lookup
+        self.moves_dict = {}
         for m in self.moves:
             self.moves_dict[m.location] = m
 
+        #Create dicts of moves grouped into columns and rows for utility comps
         self.col_moves = self.group_moves_by_column()
         self.row_moves = self.group_moves_by_row()
 
+        #Keep track of max consecutive moves achieved for each player
+        self.reset_move_sequences()
+
         self.children = []
 
-        #Keep track of max consecutive moves achieved for each player
-        self.consec_moves = {
-            'horizontal': {
-                1: 0,
-                2: 0
-            },
-            'vertical': {
-                1: 0,
-                2: 0
-            }
-        }
 
     def move_played(self, move_location):
         return move_location in self.moves_dict
+
 
     def populateSuccessors(self):
         # If num moves made is even, it's player one's turn
@@ -94,33 +119,33 @@ class GameState(object):
 
         self.children = children
 
-    def reset_consec_moves(self):
-        self.consec_moves = {
-            'horizontal': {
-                1: 0,
-                2: 0
-            },
-            'vertical': {
-                1: 0,
-                2: 0
-            }
+
+    def reset_move_sequences(self):
+        self.player_move_sequences = {
+            1: [],
+            2: []
         }
 
-    def update_consecutive_count(self, player, direction): 
-        self.consec_moves[direction][player] += 1
 
-    def get_consecutive_count(self, player, direction): 
-        return self.consec_moves[direction][player]
+    def find_sequence(self, player, seq_length):
+        player_seqs = self.player_move_sequences[player]
+        for s in player_seqs:
+            if s.has_length(seq_length):
+                return s
 
-    def player_one_wins(self):
-        vc = self.get_consecutive_count(1, 'vertical')
-        hc = self.get_consecutive_count(1, 'horizontal')
-        return hc == 4 or vc == 4
 
-    def player_two_wins(self):
-        vc = self.get_consecutive_count(2, 'vertical')
-        hc = self.get_consecutive_count(2, 'horizontal')
-        return hc == 4 or vc == 4
+    def capture_move_sequences(self, player, sequences):
+        curr_sequences = self.player_move_sequences[player]
+        self.player_move_sequences[player] = curr_sequences + sequences
+        print("sequences captured for player %d" % player)
+        print(self.player_move_sequences[player])
+
+
+    def player_wins(self, player):
+        for s in self.player_move_sequences[player]:
+            if s.is_win():
+                return True
+
 
     def group_moves_by_column(self):
         columns = {}
@@ -157,55 +182,68 @@ class GameState(object):
 
 
     def utility(self):
-        self.reset_consecutive_count()
+        self.reset_move_sequences()
 
         infinity = float('inf')
-        util_calc = self.horizontal_utility() + \
-                    self.vertical_utility()
+        consec_in_col = lambda prev_loc, loc: loc == prev_loc+8
+        consec_in_row = lambda prev_loc, loc: loc == prev_loc+1
+        util_calc = self.utility_for_orientation(self.col_moves, consec_in_col, 'v') + \
+                    self.utility_for_orientation(self.row_moves, consec_in_row, 'h')
 
-        if self.player_one_wins():
+        if self.player_wins(1):
+            print('player one wins!')
             return infinity
 
-        if self.player_two_wins():
+        if self.player_wins(2):
+            print('player two wins!')
             return -infinity
 
         return util_calc
 
 
-    def vertical_utility(self):
-        u = 1
+    def utility_for_orientation(self, oriented_moves, is_consecutive, orientation):
         total_scores = {
             1: 0,
             2: 0
         }
 
-        for col, self.col_moves in columns.items():
+        for group, moves in oriented_moves.items():
             prev_player = None
             prev_location = None
+            curr_move_sequence = {
+                1: [],
+                2: []
+            }
             score_idx = 1
-            print("operating on column %d" % col)
+            print("operating on group %d" % group)
 
             scores = {
                 1: 0,
                 2: 0
             }
 
-            for m in col_moves:
+            move_sequences = {
+                1: [],
+                2: []
+            }
+
+            for m in moves:
                 curr_score = scores[m.player]
                 if not prev_player:
-                    print("player %d has first move in col" % m.player)
+                    print("player %d has first move in group" % m.player)
                     prev_player = m.player
                     prev_location = m.location
                     scores[m.player] = 2
+                    curr_move_sequence[m.player].append(m.location)
                 elif m.player == prev_player:
-                    print("player %d has another move in col" % m.player)
+                    print("player %d has another move in group" % m.player)
                     print("location %d" % m.location)
-                    if m.location == prev_location + 8:
+                    if is_consecutive(prev_location, m.location):
                         print("player %d has consecutive move" % m.player)
 
-                        #Update current consecutive count for the game so far
-                        self.update_consecutive_count(m.player)
-                        scores[m.player] = curr_score * math.pow(curr_score, 4)
+                        curr_move_sequence[m.player].append(m.location)
+                        print(curr_move_sequence[m.player])
+                        scores[m.player] = curr_score * math.pow(curr_score, 2)
                     else:
                         scores[m.player] = curr_score + 2
 
@@ -214,6 +252,13 @@ class GameState(object):
                 else:
                     print("switching to player %d and resetting score_idx" % m.player)
                     print("location %d" % m.location)
+
+                    if len(curr_move_sequence[prev_player]) > 1:
+                        print("found a sequence")
+                        move_sequences[prev_player].append(MoveSequence(curr_move_sequence[prev_player], orientation))
+                        print(move_sequences)
+                        curr_move_sequence[prev_player] = []
+
                     prev_player = m.player
                     prev_location = m.location
                     score_idx = 1
@@ -221,73 +266,25 @@ class GameState(object):
                     scores[m.player] = curr_score + 2 if curr_score else 2
                     print("player has new score: %d" % scores[m.player])
 
+            #Tally up the total scores
             for player in scores:
                 total_scores[player] += scores[player]
+
+            #Capture remaining move sequences from last run
+            for player, sequence in curr_move_sequence.items():
+                if len(sequence) > 1:
+                    move_sequences[player].append(MoveSequence(sequence, orientation))
+
+            #Persist all move sequences that were found
+            for player, sequences in move_sequences.items():
+                if len(sequences):
+                    self.capture_move_sequences(m.player, sequences)
 
             print("current total scores")
             print(total_scores)
 
         return total_scores[1] - total_scores[2]
 
-
-    def horizontal_utility(self):
-        u = 1
-        total_scores = {
-            1: 0,
-            2: 0
-        }
-
-        for row, self.row_moves in rows.items():
-            prev_player = None
-            prev_location = None
-            score_idx = 1
-            print("operating on row %d" % row)
-
-            scores = {
-                1: 0,
-                2: 0
-            }
-
-            for m in row_moves:
-                curr_score = scores[m.player]
-                if not prev_player:
-                    print("player %d has first move in row" % m.player)
-                    prev_player = m.player
-                    prev_location = m.location
-                    scores[m.player] = 2
-                    print("player has new score: %d" % scores[m.player])
-                elif m.player == prev_player:
-                    print("player %d has another move in row" % m.player)
-                    print("location %d" % m.location)
-
-                    if m.location == prev_location + 1:
-                        print("player %d has consecutive move in row" % m.player)
-
-                        #Update current consecutive count for the game so far
-                        self.update_consecutive_count(m.player)
-                        scores[m.player] = curr_score * math.pow(curr_score, 4)
-                    else:
-                        scores[m.player] = curr_score + 2
-
-                    print("player has new score: %d" % scores[m.player])
-                    prev_location = m.location
-                else:
-                    print("switching to player %d and resetting score_idx" % m.player)
-                    print("location %d" % m.location)
-                    prev_player = m.player
-                    prev_location = m.location
-                    score_idx = 1
-
-                    scores[m.player] = curr_score + 2 if curr_score else 2
-                    print("player has new score: %d" % scores[m.player])
-
-            for player in scores:
-                total_scores[player] += scores[player]
-
-            print("current total scores")
-            print(total_scores)
-
-        return total_scores[1] - total_scores[2]
 
 
     def is_terminal(self):
