@@ -62,9 +62,11 @@ class GameBoard extends Component {
     componentWillReceiveProps = (nextProps) => {
         let state = this.state;
         let currgame = this.props.game;
-        if (currgame.moves.length !== nextProps.game.moves.length) {
+        let move_made = currgame.moves.length !== nextProps.game.moves.length;
+        let game_ended = currgame.winner !== nextProps.game.winner;
+        if (move_made || game_ended) {
             state.game = nextProps.game;
-            this.setState(state)
+            this.setState(state);
         }
     }
 
@@ -80,8 +82,10 @@ class GameBoard extends Component {
     }
 
     render() {
+        var {game} = this.state;
         return (
             <div className="game-board">
+                {game.winner ? <h1>Player {game.winner} wins!</h1> : null}
                 {this.renderBoardSpaces()}
             </div>
         );
