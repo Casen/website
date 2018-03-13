@@ -19,7 +19,7 @@ class BoardSpace extends Component {
         var placeholder = !this.props.move;
         var move = placeholder ? "p" : this.props.move;
         var style = placeholder ? {visibility:"hidden"} : {};
-        var moveChar = move.player == 1 ? 'x': 'o';
+        var moveChar = move.player === 1 ? 'x': 'o';
         return (
             <div className="board-space" onClick={this.clickSpace}>
                 <p style={style}>{moveChar}</p>

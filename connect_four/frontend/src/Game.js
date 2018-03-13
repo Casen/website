@@ -28,25 +28,15 @@ class Game extends Component {
     }
 
     persistMove = (move) => {
-        var {currentGame} = this.state;
-
         network.makeMove(move)
             .then(persistedMove => {
 
                 //Once we've persisted the move, let's ask the AI for it's move
                 network.getAiMove(move)
-                    .then(aiMove => {
-
-                        //TODO: figure out DRF nonsense so this call is not required
-                        network.fetchGame(move.game)
-                            .then(updatedGame => {
-                                this.setState({currentGame: updatedGame});
-                            });
+                    .then(updatedGame => {
+                        this.setState({currentGame: updatedGame});
                     });
             });
-
-
-
     }
 
     render() {
