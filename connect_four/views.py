@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
@@ -25,11 +26,16 @@ class GameViewSet(viewsets.ModelViewSet):
 
         next_game_state = gs.make_move()
 
-        ai_played_move = next_game_state.move_made
-        ai_played_move.game = game
-        ai_played_move.save()
+        if next_game_state.winning_player:
+            game.ended_at = datetime.datetime.now()
+            game.winner = next_game_state.winning_player
+            game.save()
+        else:
+            ai_played_move = next_game_state.move_made
+            ai_played_move.game = game
+            ai_played_move.save()
 
-        #Reload the game with the new move
+        #Reload the game
         game = self.get_object()
         serializer = self.get_serializer(game)
         return Response(serializer.data)

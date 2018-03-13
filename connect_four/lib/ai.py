@@ -13,6 +13,12 @@ class GameSession(object):
         self.current_state = GameState(self.game.to_state())
 
     def make_move(self):
+        self.current_state.utility()
+
+        #If the opponent has already won, no point in making a move!
+        if self.current_state.player_wins(self.opponent):
+            return self.current_state
+
         if len(self.current_state.moves) < 3:
             return self.make_opening_move()
 
@@ -31,7 +37,6 @@ class GameSession(object):
 
 
     def find_blocking_move(self):
-        self.current_state.utility()
         opp_seq = self.current_state.find_sequence(self.opponent, 2)
 
         if opp_seq:
@@ -43,7 +48,6 @@ class GameSession(object):
 
 
     def find_winning_move(self):
-        self.current_state.utility()
         return None
 
     def make_opening_move(self):
@@ -101,6 +105,7 @@ class GameState(object):
         self.reset_move_sequences()
 
         self.children = []
+        self.winning_player = None
 
 
     def move_played(self, move_location):
@@ -144,6 +149,7 @@ class GameState(object):
     def player_wins(self, player):
         for s in self.player_move_sequences[player]:
             if s.is_win():
+                self.winning_player = player
                 return True
 
 
