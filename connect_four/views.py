@@ -28,7 +28,10 @@ class GameViewSet(viewsets.ModelViewSet):
         ai_played_move = next_game_state.move_made
         ai_played_move.game = game
         ai_played_move.save()
-        # TODO figure out DRF nonsense. 
+
+        #Reload the game with the new move
+        game = self.get_object()
+        serializer = self.get_serializer(game)
         return Response(serializer.data)
 
 
