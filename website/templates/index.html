@@ -1,9 +1,20 @@
 {% extends 'layout.html' %}
+{% load yearssince %}
 
-{% block content %}
+{% block banner %}
 <section>
-    <article class="banner banner--garden">
-        <h1>this is the homepage</h1>
+    <article class="banner banner--1">
+    </article>
+    <article class="home-section flex justify-end pr4 pl4">
+        <div class="col col-12 sm-col sm-col-6 md-col-6 lg-col-6">
+            <div class="bio p2">
+                <h1>Hi, I'm Casen.</h1>
+                <p>I've been fortunate to have helped build out technical infrastructure for businesses at nearly every stage of growth, and in that time I've learned more than I ever thought possible.</p>
+                <p>One of my biggest passions is helping others learn and grow. For that reason I'm looking for opportunities to bring computer science education to youth who could use a hand up in life.</p>
+                <p>Feel free to reach out if you'd like to work with me.</p>
+                <div class="center" ><a href="/contact" >Get In Touch</a></div>
+            </div>
+        </div>
     </article>
 </section>
 {% endblock %}

@@ -18,13 +18,8 @@
         <![endif]-->
     </head>
     <body>
-        <navbar class="flex items-center pl2 pr2 light-bg-text" >
-            <img class="logo" src="/static/images/logo-min-white-fill.png" />
-            <div class="flex-auto">
-                <h2 class="mt0 mb0 ml1">Casen Davis</h2>
-                <p class="sub-heading ml2 mt0 mb0"><em>Software engineer</em></p>
-            </div>
-            <navmenu class="pr3">
+        <navbar class="flex items-center center pl2 pr2" >
+            <navmenu class="flex-auto pr3">
                 <a href="/" >home</a>
                 <a href="/blog/" >blog</a>
                 <a href="/projects/" >projects</a>
@@ -34,15 +29,17 @@
         <div class="primary-bg navbar-transparency">
         </div>
         <div class="clear-fix light-bg-text light-bg content" >
-            <div class="max-width-3 mx-auto">
+            <div class="mx-auto">
+                {% block banner %}
+                {% endblock %}
+            </div>
+            <div class="max-width-4 mx-auto">
                 {% block content %}
                 {% endblock %}
             </div>
         </div>
         <footer class="flex items-center center light-bg-text">
-            <p class="flex-auto font-lato">
-                <strong>© {% now "Y" %} Casen Davis. All Rights Reserved</strong>
-            </p>
+            <p class="flex-auto">© {% now "Y" %} Casen Davis. All Rights Reserved. <a href="mailto:hello@casendavis.com">hello@casendavis.com</a> <a href="https://www.linkedin.com/in/casendavis">LinkedIn</a></p>
         </footer>
     </body>
 </html>
