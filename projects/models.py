@@ -7,7 +7,7 @@ class Project(models.Model):
     title   = models.CharField(max_length=200, default='')
     slug    = models.SlugField(unique=True, default='')
     custom_template   = models.CharField(max_length=200, default='')
-    description = models.TextField()
+    description = models.TextField(default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
