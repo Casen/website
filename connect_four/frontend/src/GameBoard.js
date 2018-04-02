@@ -1,3 +1,4 @@
+/*jshint loopfunc: true */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -74,6 +75,7 @@ class GameBoard extends Component {
         var boardSpaces = [];
         var {game} = this.state;
         for (var i=0; i<64; i++) {
+            // eslint-disable-next-line
             let move = game.moves.find(move => move.location === i);
             boardSpaces.push(<BoardSpace index={i} move={move} makeMove={this.makeMove} key={'board-space-' + i}/>);
         }

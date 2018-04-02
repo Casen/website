@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
 import GameBoard from './GameBoard';
 
 import network from './lib/network';
@@ -20,11 +18,6 @@ class Game extends Component {
     }
 
     componentDidMount = () => {
-        network.fetchGame(1)
-            .then(currentGame => {
-                console.log('fetched the game ', currentGame);
-                this.setState({currentGame});
-            });
     }
 
     persistMove = (move) => {
