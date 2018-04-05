@@ -86,8 +86,6 @@ footer {
     background-color: $secondary;
     width: 100%;
     height: 65px;
-    position: absolute;
-    bottom: 0;
 
     a {
         text-decoration: none;
@@ -129,4 +127,8 @@ footer {
 
 .bio {
     background-color: rgba($light-tan, 0.9);
+}
+
+.below-banner {
+    margin: 325px 0 50px 0;
 }
