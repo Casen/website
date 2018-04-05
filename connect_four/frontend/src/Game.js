@@ -37,7 +37,7 @@ class Game extends Component {
         let gameMarkup = currentGame ?
                 <GameBoard game={currentGame} persistMove={this.persistMove}/>
                 :
-                <div>
+                <div className="center">
                     <button onClick={this.createGame}>Start Game</button>
                 </div>;
 

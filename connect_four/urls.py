@@ -13,4 +13,5 @@ games_router.register(r'moves', views.MoveViewSet, base_name='game-moves')
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^', include(games_router.urls)),
+    url(r'play', views.play_game)
 ]

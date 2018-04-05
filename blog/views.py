@@ -4,15 +4,12 @@ from django.http import HttpResponse
 
 from .models import Post
 
-
-
 def index(request):
     post = Post.objects.latest('created_at')
     template = loader.get_template('blog/index.html')
     context = {
         'post': post
     }
-    print(context)
     return HttpResponse(template.render(context, request)) 
 
 def detail(request, slug):
@@ -21,5 +18,4 @@ def detail(request, slug):
     context = {
         'post': post
     }
-    print(context)
     return HttpResponse(template.render(context, request)) 

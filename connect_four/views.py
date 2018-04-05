@@ -50,3 +50,7 @@ class MoveViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Move.objects.filter(game=self.kwargs['game_pk'])
 
+
+def play_game(request):
+    """Landing page for interactive game"""
+    return render(request, 'build/index.html', {})
