@@ -343,36 +343,3 @@ class GameAI(object):
                     break
 
             return val
-
-
-
-    def min_value(self, node, alpha, beta):
-        if node.is_terminal():
-            return node.utility()
-
-        infinity = float('inf')
-        value = infinity
-
-        successors = self.get_successors(node)
-        for child in successors:
-            value = min(value, self.max_value(child, alpha, beta))
-            if value <= alpha:
-                return value
-            beta = min(beta, value)
-        return value
-
-    def max_value(self, node, alpha, beta):
-        if node.is_terminal():
-            return node.utility()
-
-        infinity = float('inf')
-        value = -infinity
-
-        successors = node.successors()
-        for child in successors:
-            value = max(value, self.min_value(child, alpha, beta))
-            if value >= beta:
-                return value
-
-            alpha = max(alpha, value)
-        return value
