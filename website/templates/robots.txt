@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /connect_four
+Disallow: /admin
