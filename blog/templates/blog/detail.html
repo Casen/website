@@ -5,7 +5,8 @@
 
     {% if post %}
         <h1>{{post.title}}</h1>
-        <article>{{ post.content| markdown | safe}}</article>
+        <article>{{ post.description | markdown | safe}}</article>
+        <article>{{ post.content | markdown | safe}}</article>
     {% else %}
         <h1>Nothing to see here.</h1>
     {% endif %}

@@ -9,9 +9,10 @@
                 <em>{{post.updated_at|date:"d M, Y" }}</em>
             </p>
             <h2 class="uppercase mt0">
-                <a href="{% url 'detail' slug=post.slug %}">{{post.title}}</a>
+                <a href="{% url 'blog_detail' slug=post.slug %}">{{post.title}}</a>
             </h2>
-            <article>{{ post.content| markdown | safe}}</article>
+            <article>{{ post.description| markdown | safe}}</article>
+            <p><a href="{% url 'blog_detail' slug=post.slug %}">Read more >></a></p>
         {% endfor %}
     {% else %}
         <h1>Nothing to see here.</h1>
