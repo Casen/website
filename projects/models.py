@@ -6,8 +6,8 @@ from django.utils.text import slugify
 class Project(models.Model):
     title   = models.CharField(max_length=200, default='')
     slug    = models.SlugField(unique=True, default='')
-    custom_template   = models.CharField(max_length=200, default='')
     description = models.TextField(default='')
+    content = models.TextField(default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

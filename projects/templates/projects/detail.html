@@ -6,7 +6,7 @@
         <section>
             <h1> {{project.title}}</h1>
             <article>{{ project.description| markdown | safe}}</article>
-            {% include project.custom_template %}
+            <article>{{ project.content | markdown | safe}}</article>
         </section>
     {% else %}
         <h1>Nothing to see here</h1>

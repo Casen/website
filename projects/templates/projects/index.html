@@ -9,7 +9,7 @@
                     <a href="{% url 'detail' slug=project.slug %}">{{project.title}}</a>
                 </h2>
                 <article>{{ project.description| markdown | safe}}</article>
-                <p><a href="{% url 'detail' slug=project.slug %}">View Details</a></p>
+                <p><a href="{% url 'detail' slug=project.slug %}">View the full writeup</a></p>
             </section>
         {% endfor %}
     {% else %}
