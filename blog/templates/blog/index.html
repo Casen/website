@@ -3,14 +3,16 @@
 
 {% block content %}
 
-    {% if post %}
-        <p class="sub-heading" >
-            <em>{{post.updated_at|date:"d M, Y" }}</em>
-        </p>
-        <h2 class="uppercase mt0">
-            <a href="{% url 'detail' slug=post.slug %}">{{post.title}}</a>
-        </h2>
-        <article>{{ post.content| markdown | safe}}</article>
+    {% if posts %}
+        {% for post in posts %}
+            <p class="sub-heading" >
+                <em>{{post.updated_at|date:"d M, Y" }}</em>
+            </p>
+            <h2 class="uppercase mt0">
+                <a href="{% url 'detail' slug=post.slug %}">{{post.title}}</a>
+            </h2>
+            <article>{{ post.content| markdown | safe}}</article>
+        {% endfor %}
     {% else %}
         <h1>Nothing to see here.</h1>
     {% endif %}

@@ -5,10 +5,10 @@ from django.http import HttpResponse
 from .models import Post
 
 def index(request):
-    post = Post.objects.latest('created_at')
+    posts = Post.objects.all()
     template = loader.get_template('blog/index.html')
     context = {
-        'post': post
+        'posts': posts
     }
     return HttpResponse(template.render(context, request)) 
 
