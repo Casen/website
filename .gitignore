@@ -13,7 +13,6 @@ bin/
 website_env/
 include/
 pip-selfcheck.json
-build/
 develop-eggs/
 dist/
 downloads/
