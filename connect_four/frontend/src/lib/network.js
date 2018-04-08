@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8000';
+const BASE_URL = ''; //TODO figure out a better way get dynamic fully-qualified urls going
 
 class Network {
 
