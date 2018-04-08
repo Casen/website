@@ -75,7 +75,6 @@ TEMPLATES = [
         'DIRS': ['website/templates', 'connect_four/frontend'],
         'APP_DIRS': True,
         'OPTIONS': {
-            'auto_reload': True,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
