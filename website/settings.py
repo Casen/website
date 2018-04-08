@@ -19,7 +19,6 @@ environ.Env.read_env() # reading .env file
 SITE_ROOT = root()
 
 DEBUG = env('DEBUG') # False if not in os.environ
-TEMPLATE_DEBUG = DEBUG
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -76,6 +75,7 @@ TEMPLATES = [
         'DIRS': ['website/templates', 'connect_four/frontend'],
         'APP_DIRS': True,
         'OPTIONS': {
+            'auto_reload': True,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
