@@ -34,7 +34,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # Application definition
 
-ALLOWED_HOSTS=[]
+ALLOWED_HOSTS=['www.casendavis.com']
 
 INSTALLED_APPS = [
     'corsheaders',
