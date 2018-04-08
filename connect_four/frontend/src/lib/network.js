@@ -1,5 +1,3 @@
-const BASE_URL = ''; //TODO figure out a better way get dynamic fully-qualified urls going
-
 class Network {
 
     post(url, payload={}) {
@@ -17,22 +15,22 @@ class Network {
     }
 
     createGame() {
-        let url = BASE_URL + '/connect_four/games/';
+        let url = '/connect_four/games/';
         return this.post(url);
     }
 
     makeMove(move) {
-        let url = BASE_URL + '/connect_four/games/' + move.game + '/moves/';
+        let url = '/connect_four/games/' + move.game + '/moves/';
         return this.post(url, move);
     }
 
     getAiMove(move) {
-        let url = BASE_URL + '/connect_four/games/'+ move.game + '/ai_move/';
+        let url = '/connect_four/games/'+ move.game + '/ai_move/';
         return this.post(url, move);
     }
 
     fetchGames() {
-        let url = BASE_URL + '/connect_four/games/';
+        let url = '/connect_four/games/';
         return fetch(url).then(res => {
                     return res.json();
                 })
@@ -40,7 +38,7 @@ class Network {
     }
 
     fetchGame(gameId) {
-        let url = BASE_URL + '/connect_four/games/' + gameId;
+        let url = '/connect_four/games/' + gameId;
         return fetch(url).then(res => {
             return res.json();
         })
