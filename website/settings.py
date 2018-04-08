@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import environ
 root = environ.Path(__file__) - 2
-env = environ.Env(DEBUG=(bool, False),) # set default values and casting
+env = environ.Env(DEBUG=(bool, False),STATIC_ROOT=(str, None)) # set default values and casting
 environ.Env.read_env() # reading .env file
 
 SITE_ROOT = root()
@@ -137,6 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = env('STATIC_ROOT')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'website/static'),
