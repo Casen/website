@@ -33,7 +33,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # Application definition
 
-ALLOWED_HOSTS=['casendavis.com', 'www.casendavis.com', '127.0.0.1', '0.0.0.0', 'localhost']
+ALLOWED_HOSTS=['casendavis.com', 'www.casendavis.com', '127.0.0.1', '0.0.0.0', 'localhost', '192.168.0.105']
 
 INSTALLED_APPS = [
     'corsheaders',
