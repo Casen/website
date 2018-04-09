@@ -136,3 +136,16 @@ footer {
 .below-banner {
     margin: 275px 0 50px 0;
 }
+
+@media (min-width: 30em), (max-width: 60em) {
+    .banner--1 {
+        background-position: -165px -30px;
+    }
+    .home-section {
+        margin-top: 265px;
+    }
+
+    .below-banner {
+        margin-top: 0;
+    }
+}
